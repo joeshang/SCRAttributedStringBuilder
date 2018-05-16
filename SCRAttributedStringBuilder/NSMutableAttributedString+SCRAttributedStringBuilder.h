@@ -18,6 +18,9 @@
 // 尾部追加一个新的 Attributed String
 - (NSMutableAttributedString *(^)(NSString *string))append;
 
+// 插入一个新的 Attributed String
+- (NSMutableAttributedString *(^)(NSString *string, NSUInteger index))insert;
+
 // 在尾部添加图片附件，默认使用图片尺寸，图片垂直居中，为了设置处理垂直居中（基于字体的 capHeight），需要在添加图片附件之前设置字体
 - (NSMutableAttributedString *(^)(UIImage *image))appendImage;
 

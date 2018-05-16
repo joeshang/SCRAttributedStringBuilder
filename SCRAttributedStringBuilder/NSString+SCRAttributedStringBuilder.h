@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSMutableAttributedString+SCRAttributedStringBuilder.h"
 
 @interface NSString (SCRAttributedStringBuilder)
 

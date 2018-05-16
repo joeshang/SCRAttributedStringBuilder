@@ -7,7 +7,6 @@
 //
 
 #import "NSString+SCRAttributedStringBuilder.h"
-#import "NSMutableAttributedString+SCRAttributedStringBuilder.h"
 
 @implementation NSString (SCRAttributedStringBuilder)
 

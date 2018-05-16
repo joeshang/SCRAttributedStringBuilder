@@ -45,6 +45,19 @@
     };
 }
 
+- (NSMutableAttributedString *(^)(NSString *, NSUInteger index))insert {
+    return ^(NSString *string, NSUInteger index) {
+        if (index > self.length) {
+            return self;
+        }
+        [self insertAttributedString:[[NSAttributedString alloc] initWithString:string]
+                             atIndex:index];
+        NSRange range = NSMakeRange(index, string.length);
+        self.scr_ranges = @[ [NSValue valueWithRange:range] ];
+        return self;
+    };
+}
+
 - (NSMutableAttributedString *(^)(UIImage *))appendImage {
     return ^(UIImage *image) {
         return self.appendSizeImage(image, image.size);
