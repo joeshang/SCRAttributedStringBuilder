@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+// 原理说明：
+// 将方法分为 Content，Range 和 Attribute 三类，其中 Content 用于添加内容，Attribute 用于给内容应用属性，而 Range 用于调整应用范围。
+// 因此，在 Content 中，无论是 append 还是 insert，会将当前 Range 切换成新加入内容的，属性会应用在此 Range 上。
+// 由于属性主要用于应用在字符上，因此附件不会切换 Range。另外为了应对 match 到多个的情况，Range 是一个数组。
+
 @interface NSMutableAttributedString (SCRAttributedStringBuilder)
 
 #pragma mark - Content
@@ -21,14 +26,23 @@
 // 插入一个新的 Attributed String
 - (NSMutableAttributedString *(^)(NSString *string, NSUInteger index))insert;
 
-// 在尾部添加图片附件，默认使用图片尺寸，图片垂直居中，为了设置处理垂直居中（基于字体的 capHeight），需要在添加图片附件之前设置字体
+// 增加间隔，spacing 的单位是 point。放到 Content 的原因是，间隔是通过空格+字体模拟的，但不会导致 Range 的切换
+- (NSMutableAttributedString *(^)(CGFloat spacing))appendSpacing;
+
+// 尾部追加一个附件。同插入字符不同，插入附件并不会将当前 Range 切换成附件所在的 Range，下同
+- (NSMutableAttributedString *(^)(NSTextAttachment *))appendAttachment;
+
+// 在尾部追加图片附件，默认使用图片尺寸，图片垂直居中，为了设置处理垂直居中（基于字体的 capHeight），需要在添加图片附件之前设置字体
 - (NSMutableAttributedString *(^)(UIImage *image))appendImage;
 
-// 在尾部添加图片附件，可以自定义尺寸，其他同 appendImage
+// 在尾部追加图片附件，可以自定义尺寸，其他同 appendImage
 - (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize))appendSizeImage;
 
-// 在头部添加图片附件，由于不确定字体信息，因此需要显式输入字体
-- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, UIFont *font))insertImage;
+// 在 index 位置插入图片附件，由于不确定字体信息，因此需要显式输入字体
+- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, NSUInteger index, UIFont *font))insertImage;
+
+// 同 insertImage 的区别在于，会在当前 Range 的头部插入图片附件，如果没有 Range 则什么也不做
+- (NSMutableAttributedString *(^)(UIImage *, CGSize, UIFont *))headInsertImage;
 
 #pragma mark - Range
 
@@ -70,6 +84,8 @@
 - (NSMutableAttributedString *(^)(NSUnderlineStyle style))strikethroughStyle;
 
 // 删除线颜色
+// 由于 iOS 的 Bug，删除线在 iOS 10.3 中无法正确显示，需要配合 baseline 使用
+// 具体见：https://stackoverflow.com/questions/43074652/ios-10-3-nsstrikethroughstyleattributename-is-not-rendered-if-applied-to-a-sub
 - (NSMutableAttributedString *(^)(UIColor *color))strikethroughColor;
 
 // 下划线风格
@@ -116,7 +132,9 @@
 // 段尾部缩进
 - (NSMutableAttributedString *(^)(CGFloat indent))tailIndent;
 
-// 行高，为了实现 Sketch 效果，会根据当前字体对 baselineOffset 进行修正
+// 行高，iOS 的行高会在顶部增加空隙，效果一般不符合 UI 的认知，很少使用
+// 这里为了完全匹配 Sketch 的行高效果，会根据当前字体对 baselineOffset 进行修正
+// 具体见: https://joeshang.github.io/2018/03/29/ios-multiline-text-spacing/
 - (NSMutableAttributedString *(^)(CGFloat lineHeight))lineHeight;
 
 #pragma mark - Special

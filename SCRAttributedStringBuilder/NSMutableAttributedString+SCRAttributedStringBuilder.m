@@ -58,6 +58,31 @@
     };
 }
 
+- (NSMutableAttributedString *(^)(CGFloat))appendSpacing {
+    return ^(CGFloat spacing) {
+        if (spacing <= 0) {
+            return self;
+        }
+        NSInteger pixels = (NSInteger)roundf(spacing * [UIScreen mainScreen].scale);
+        NSMutableString *spaces = [[NSMutableString alloc] init];
+        for (NSInteger i = 0; i < pixels; i++) {
+            [spaces appendString:@" "];
+        }
+
+        [self appendAttributedString:[[NSAttributedString alloc] initWithString:spaces
+                                                                     attributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:1] }]];
+        return self;
+    };
+}
+
+- (NSMutableAttributedString *(^)(NSTextAttachment *))appendAttachment {
+    return ^(NSTextAttachment *attachment) {
+        NSAttributedString *string = [NSAttributedString attributedStringWithAttachment:attachment];
+        [self appendAttributedString:string];
+        return self;
+    };
+}
+
 - (NSMutableAttributedString *(^)(UIImage *))appendImage {
     return ^(UIImage *image) {
         return self.appendSizeImage(image, image.size);
@@ -66,21 +91,31 @@
 
 - (NSMutableAttributedString *(^)(UIImage *, CGSize))appendSizeImage {
     return ^(UIImage *image, CGSize imageSize) {
+        CGFloat offset = 0;
+        UIFont *font = [self attribute:NSFontAttributeName atIndex:self.string.length - 1 effectiveRange:nil];
+        if (font) {
+            offset = roundf((font.capHeight - imageSize.height) / 2);
+        }
+        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+        attachment.image = image;
+        attachment.bounds = CGRectMake(0, offset, imageSize.width, imageSize.height);
+        [self appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+        return self;
+    };
+}
+
+- (NSMutableAttributedString *(^)(UIImage *, CGSize, NSUInteger, UIFont *))insertImage {
+    return ^(UIImage *image, CGSize imageSize, NSUInteger index, UIFont *font) {
+        CGFloat offset = roundf((font.capHeight - imageSize.height) / 2);
+        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+        attachment.image = image;
+        attachment.bounds = CGRectMake(0, offset, imageSize.width, imageSize.height);
+        [self insertAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]
+                             atIndex:index];
         NSMutableArray *ranges = [NSMutableArray array];
-        for (NSInteger index = 0; index < self.scr_ranges.count; index++) {
-            CGFloat offset = 0;
-            NSRange range = [self.scr_ranges[index] rangeValue];
-            range.location += index;
-            NSInteger index = range.location + range.length - 1;
-            UIFont *font = [self attribute:NSFontAttributeName atIndex:index effectiveRange:nil];
-            if (font) {
-                offset = roundf((font.capHeight - imageSize.height) / 2);
-            }
-            NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
-            attachment.image = image;
-            attachment.bounds = CGRectMake(0, offset, imageSize.width, imageSize.height);
-            [self insertAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]
-                                 atIndex:index + 1];
+        for (NSInteger i = 0; i < self.scr_ranges.count; i++) {
+            NSRange range = [self.scr_ranges[i] rangeValue];
+            range.location += 1;
             [ranges addObject:[NSValue valueWithRange:range]];
         }
         self.scr_ranges = [ranges copy];
@@ -88,7 +123,7 @@
     };
 }
 
-- (NSMutableAttributedString *(^)(UIImage *, CGSize, UIFont *))insertImage {
+- (NSMutableAttributedString *(^)(UIImage *, CGSize, UIFont *))headInsertImage {
     return ^(UIImage *image, CGSize imageSize, UIFont *font) {
         NSMutableArray *ranges = [NSMutableArray array];
         for (NSInteger index = 0; index < self.scr_ranges.count; index++) {

@@ -13,8 +13,8 @@
 		D298FF55208B6E3400D1644E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D298FF54208B6E3400D1644E /* Assets.xcassets */; };
 		D298FF58208B6E3400D1644E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D298FF56208B6E3400D1644E /* LaunchScreen.storyboard */; };
 		D298FF5B208B6E3400D1644E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D298FF5A208B6E3400D1644E /* main.m */; };
-		D298FF64208B6EA100D1644E /* NSMutableAttributedString+SCRAttributedStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = D298FF63208B6EA100D1644E /* NSMutableAttributedString+SCRAttributedStringBuilder.m */; };
-		D298FF67208B6ECD00D1644E /* NSString+SCRAttributedStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = D298FF66208B6ECD00D1644E /* NSString+SCRAttributedStringBuilder.m */; };
+		D2D7A4C520B5691100EFF544 /* NSString+SCRAttributedStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7A4C120B5691100EFF544 /* NSString+SCRAttributedStringBuilder.m */; };
+		D2D7A4C620B5691100EFF544 /* NSMutableAttributedString+SCRAttributedStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = D2D7A4C220B5691100EFF544 /* NSMutableAttributedString+SCRAttributedStringBuilder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,10 +28,10 @@
 		D298FF57208B6E3400D1644E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D298FF59208B6E3400D1644E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D298FF5A208B6E3400D1644E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D298FF62208B6EA100D1644E /* NSMutableAttributedString+SCRAttributedStringBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+SCRAttributedStringBuilder.h"; sourceTree = "<group>"; };
-		D298FF63208B6EA100D1644E /* NSMutableAttributedString+SCRAttributedStringBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+SCRAttributedStringBuilder.m"; sourceTree = "<group>"; };
-		D298FF65208B6ECD00D1644E /* NSString+SCRAttributedStringBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+SCRAttributedStringBuilder.h"; sourceTree = "<group>"; };
-		D298FF66208B6ECD00D1644E /* NSString+SCRAttributedStringBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+SCRAttributedStringBuilder.m"; sourceTree = "<group>"; };
+		D2D7A4C120B5691100EFF544 /* NSString+SCRAttributedStringBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SCRAttributedStringBuilder.m"; sourceTree = "<group>"; };
+		D2D7A4C220B5691100EFF544 /* NSMutableAttributedString+SCRAttributedStringBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+SCRAttributedStringBuilder.m"; sourceTree = "<group>"; };
+		D2D7A4C320B5691100EFF544 /* NSString+SCRAttributedStringBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SCRAttributedStringBuilder.h"; sourceTree = "<group>"; };
+		D2D7A4C420B5691100EFF544 /* NSMutableAttributedString+SCRAttributedStringBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+SCRAttributedStringBuilder.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +48,7 @@
 		D298FF3F208B6E3300D1644E = {
 			isa = PBXGroup;
 			children = (
-				D298FF61208B6E7B00D1644E /* SCRAttributedStringBuilder */,
+				D2D7A4C020B5691100EFF544 /* SCRAttributedStringBuilder */,
 				D298FF4A208B6E3300D1644E /* SCRAttributedStringBuilderDemo */,
 				D298FF49208B6E3300D1644E /* Products */,
 			);
@@ -78,13 +78,13 @@
 			path = SCRAttributedStringBuilderDemo;
 			sourceTree = "<group>";
 		};
-		D298FF61208B6E7B00D1644E /* SCRAttributedStringBuilder */ = {
+		D2D7A4C020B5691100EFF544 /* SCRAttributedStringBuilder */ = {
 			isa = PBXGroup;
 			children = (
-				D298FF62208B6EA100D1644E /* NSMutableAttributedString+SCRAttributedStringBuilder.h */,
-				D298FF63208B6EA100D1644E /* NSMutableAttributedString+SCRAttributedStringBuilder.m */,
-				D298FF65208B6ECD00D1644E /* NSString+SCRAttributedStringBuilder.h */,
-				D298FF66208B6ECD00D1644E /* NSString+SCRAttributedStringBuilder.m */,
+				D2D7A4C320B5691100EFF544 /* NSString+SCRAttributedStringBuilder.h */,
+				D2D7A4C120B5691100EFF544 /* NSString+SCRAttributedStringBuilder.m */,
+				D2D7A4C420B5691100EFF544 /* NSMutableAttributedString+SCRAttributedStringBuilder.h */,
+				D2D7A4C220B5691100EFF544 /* NSMutableAttributedString+SCRAttributedStringBuilder.m */,
 			);
 			name = SCRAttributedStringBuilder;
 			path = ../SCRAttributedStringBuilder;
@@ -160,10 +160,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D298FF67208B6ECD00D1644E /* NSString+SCRAttributedStringBuilder.m in Sources */,
-				D298FF64208B6EA100D1644E /* NSMutableAttributedString+SCRAttributedStringBuilder.m in Sources */,
 				D298FF50208B6E3300D1644E /* ViewController.m in Sources */,
+				D2D7A4C520B5691100EFF544 /* NSString+SCRAttributedStringBuilder.m in Sources */,
 				D298FF5B208B6E3400D1644E /* main.m in Sources */,
+				D2D7A4C620B5691100EFF544 /* NSMutableAttributedString+SCRAttributedStringBuilder.m in Sources */,
 				D298FF4D208B6E3300D1644E /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
