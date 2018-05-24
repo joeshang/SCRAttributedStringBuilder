@@ -45,6 +45,15 @@
     };
 }
 
+- (NSMutableAttributedString *(^)(NSAttributedString *))attributedAppend {
+    return ^(NSAttributedString *attributedString) {
+        NSRange range = NSMakeRange(self.length, attributedString.string.length);
+        [self appendAttributedString:attributedString];
+        self.scr_ranges = @[ [NSValue valueWithRange:range] ];
+        return self;
+    };
+}
+
 - (NSMutableAttributedString *(^)(NSString *, NSUInteger index))insert {
     return ^(NSString *string, NSUInteger index) {
         if (index > self.length) {
@@ -63,6 +72,8 @@
         if (spacing <= 0) {
             return self;
         }
+
+        // 原理是：字号为 1 的系统字体空格正好是 1 像素
         NSInteger pixels = (NSInteger)roundf(spacing * [UIScreen mainScreen].scale);
         NSMutableString *spaces = [[NSMutableString alloc] init];
         for (NSInteger i = 0; i < pixels; i++) {

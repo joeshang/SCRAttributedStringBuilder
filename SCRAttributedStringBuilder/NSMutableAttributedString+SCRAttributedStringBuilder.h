@@ -23,6 +23,9 @@
 // 尾部追加一个新的 Attributed String
 - (NSMutableAttributedString *(^)(NSString *string))append;
 
+// 同 append 比，参数是 NSAttributedString
+- (NSMutableAttributedString *(^)(NSAttributedString *attributedString))attributedAppend;
+
 // 插入一个新的 Attributed String
 - (NSMutableAttributedString *(^)(NSString *string, NSUInteger index))insert;
 
