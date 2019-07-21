@@ -6,14 +6,14 @@
 //  Copyright © 2018 Chuanren Shang. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "OCViewController.h"
 #import "NSString+SCRAttributedStringBuilder.h"
 
-@interface ViewController ()
+@interface OCViewController ()
 
 @end
 
-@implementation ViewController
+@implementation OCViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

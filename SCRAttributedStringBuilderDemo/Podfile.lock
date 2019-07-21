@@ -1,0 +1,22 @@
+PODS:
+  - SCRAttributedStringBuilder (1.0.4):
+    - SCRAttributedStringBuilder/All (= 1.0.4)
+  - SCRAttributedStringBuilder/All (1.0.4):
+    - SCRAttributedStringBuilder/OC
+    - SCRAttributedStringBuilder/Swift
+  - SCRAttributedStringBuilder/OC (1.0.4)
+  - SCRAttributedStringBuilder/Swift (1.0.4)
+
+DEPENDENCIES:
+  - SCRAttributedStringBuilder (from `../`)
+
+EXTERNAL SOURCES:
+  SCRAttributedStringBuilder:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SCRAttributedStringBuilder: d33910ff67dcbbcf775a04a91cfa5440227154e0
+
+PODFILE CHECKSUM: 86fd8b4bd5805e114cb3ea3b2ae830dc2b23aade
+
+COCOAPODS: 1.7.2
