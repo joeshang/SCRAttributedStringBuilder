@@ -38,8 +38,14 @@
 // 在尾部追加图片附件，默认使用图片尺寸，图片垂直居中，为了设置处理垂直居中（基于字体的 capHeight），需要在添加图片附件之前设置字体
 - (NSMutableAttributedString *(^)(UIImage *image))appendImage;
 
-// 在尾部追加图片附件，可以自定义尺寸，其他同 appendImage
+// 在尾部追加图片附件，可以自定义尺寸，默认使用图片前一位的字体进行对齐，其他同 appendImage
 - (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize))appendSizeImage;
+
+// 在尾部追加图片附件，可以自定义想对齐的字体，图片使用自身尺寸，其他同 appendImage
+- (NSMutableAttributedString *(^)(UIImage *, UIFont *))appendFontImage;
+
+// 在尾部追加图片附件，可以自定义尺寸和想对齐的字体，其他同 appendImage
+- (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, UIFont *font))appendCustomImage;
 
 // 在 index 位置插入图片附件，由于不确定字体信息，因此需要显式输入字体
 - (NSMutableAttributedString *(^)(UIImage *image, CGSize imageSize, NSUInteger index, UIFont *font))insertImage;

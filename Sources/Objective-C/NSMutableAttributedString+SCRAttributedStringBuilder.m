@@ -73,16 +73,10 @@
             return self;
         }
 
-        // 原理是：字号为 1 的系统字体空格正好是 1 像素
-        NSInteger pixels = (NSInteger)roundf(spacing * [UIScreen mainScreen].scale);
-        NSMutableString *spaces = [[NSMutableString alloc] init];
-        for (NSInteger i = 0; i < pixels; i++) {
-            [spaces appendString:@" "];
-        }
-
-        [self appendAttributedString:[[NSAttributedString alloc] initWithString:spaces
-                                                                     attributes:@{ NSFontAttributeName: [UIFont systemFontOfSize:1] }]];
-        return self;
+        NSTextAttachment *attachment = [NSTextAttachment new];
+        attachment.image = nil;
+        attachment.bounds = CGRectMake(0, 0, spacing, 1);
+        return self.appendAttachment(attachment);
     };
 }
 
@@ -102,8 +96,20 @@
 
 - (NSMutableAttributedString *(^)(UIImage *, CGSize))appendSizeImage {
     return ^(UIImage *image, CGSize imageSize) {
-        CGFloat offset = 0;
         UIFont *font = [self attribute:NSFontAttributeName atIndex:self.string.length - 1 effectiveRange:nil];
+        return self.appendCustomImage(image, imageSize, font);
+    };
+}
+
+- (NSMutableAttributedString *(^)(UIImage *, UIFont *))appendFontImage {
+    return ^(UIImage *image, UIFont *font) {
+        return self.appendCustomImage(image, image.size, font);
+    };
+}
+
+- (NSMutableAttributedString *(^)(UIImage *, CGSize, UIFont *))appendCustomImage {
+    return ^(UIImage *image, CGSize imageSize, UIFont *font) {
+        CGFloat offset = 0;
         if (font) {
             offset = roundf((font.capHeight - imageSize.height) / 2);
         }

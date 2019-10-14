@@ -47,13 +47,10 @@ public class AttributedStringBuilder {
         guard spacing > 0 else {
             return self
         }
-        let pixels = Int(roundf(spacing * Float(UIScreen.main.scale)))
-        var spacings = String()
-        for _ in 0..<pixels {
-            spacings.append(" ")
-        }
-        attributedString.append(NSAttributedString(string: spacings, attributes: [ NSAttributedString.Key.font: UIFont.systemFont(ofSize:1) ]))
-        return self
+        let attachment = NSTextAttachment()
+        attachment.image = nil
+        attachment.bounds = CGRect(x: 0, y: 0, width: Int(spacing), height: 1)
+        return appendAttachment(attachment)
     }
 
     public func appendAttachment(_ attachment: NSTextAttachment) -> AttributedStringBuilder {
@@ -66,8 +63,17 @@ public class AttributedStringBuilder {
     }
 
     public func appendImage(_ image: UIImage, _ imageSize: CGSize) -> AttributedStringBuilder {
+        let font = attributedString.attribute(.font, at: attributedString.string.count - 1, effectiveRange: nil) as? UIFont
+        return appendImage(image, imageSize, font)
+    }
+
+    public func appendImage(_ image: UIImage, _ font: UIFont) -> AttributedStringBuilder {
+        return appendImage(image, image.size, font)
+    }
+
+    public func appendImage(_ image: UIImage, _ imageSize: CGSize, _ font: UIFont?) -> AttributedStringBuilder {
         var offset: CGFloat = 0
-        if let font = attributedString.attribute(.font, at: attributedString.string.count - 1, effectiveRange: nil) as? UIFont {
+        if let font = font {
             offset = CGFloat(roundf(Float((font.capHeight - imageSize.height) / 2)))
         }
         let attachment = NSTextAttachment()

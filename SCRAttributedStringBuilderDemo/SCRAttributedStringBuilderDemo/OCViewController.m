@@ -34,11 +34,13 @@
         .matchLast(@"链接").strikethroughStyle(NSUnderlineStyleSingle).strikethroughColor([UIColor yellowColor])
         .append(text).alignment(NSTextAlignmentCenter).headIndent(20).tailIndent(-20).lineSpacing(10)
         .append(@"路飞").font([UIFont systemFontOfSize:25]).strokeWidth(2).strokeColor([UIColor darkGrayColor])
+        .headInsertImage([UIImage imageNamed:@"luffer"], CGSizeMake(50, 50), [UIFont systemFontOfSize:25])
         .appendSizeImage([UIImage imageNamed:@"luffer"], CGSizeMake(50, 50))
+        .appendCustomImage([UIImage imageNamed:@"luffer"], CGSizeMake(50, 50), [UIFont systemFontOfSize:15])
+        .append(@"路飞").font([UIFont systemFontOfSize:15])
         .appendSpacing(20)
         .appendAttachment(attachment)
         .insertImage([UIImage imageNamed:@"luffer"], CGSizeMake(50, 50), 0, [UIFont systemFontOfSize:30])
-        .headInsertImage([UIImage imageNamed:@"luffer"], CGSizeMake(50, 50), [UIFont systemFontOfSize:25])
         .append(@"\n阴影").shadow(shadow).append(@"基线偏移\n").baselineOffset(-5)
         .append(@" ").backgroundColor([UIColor redColor]).fontSize(2);
 }
