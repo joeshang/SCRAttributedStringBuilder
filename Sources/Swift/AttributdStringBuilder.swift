@@ -49,7 +49,7 @@ public class AttributedStringBuilder {
         }
         let attachment = NSTextAttachment()
         attachment.image = nil
-        attachment.bounds = CGRect(x: 0, y: 0, width: Int(spacing), height: 1)
+        attachment.bounds = CGRect(x: 0, y: 0, width: Int(spacing), height: 0)
         return appendAttachment(attachment)
     }
 

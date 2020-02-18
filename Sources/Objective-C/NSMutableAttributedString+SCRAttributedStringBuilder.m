@@ -75,7 +75,7 @@
 
         NSTextAttachment *attachment = [NSTextAttachment new];
         attachment.image = nil;
-        attachment.bounds = CGRectMake(0, 0, spacing, 1);
+        attachment.bounds = CGRectMake(0, 0, spacing, 0);
         return self.appendAttachment(attachment);
     };
 }
