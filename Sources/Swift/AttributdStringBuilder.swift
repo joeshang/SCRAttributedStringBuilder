@@ -63,7 +63,10 @@ public class AttributedStringBuilder {
     }
 
     public func appendImage(_ image: UIImage, _ imageSize: CGSize) -> AttributedStringBuilder {
-        let font = attributedString.attribute(.font, at: attributedString.string.count - 1, effectiveRange: nil) as? UIFont
+        var font: UIFont? = nil
+        if attributedString.string.count != 0 {
+            font = attributedString.attribute(.font, at: attributedString.string.count - 1, effectiveRange: nil) as? UIFont
+        }
         return appendImage(image, imageSize, font)
     }
 

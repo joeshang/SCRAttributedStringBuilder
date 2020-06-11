@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "SCRAttributedStringBuilder"
-s.version      = "1.1.2"
+s.version      = "1.1.3"
 s.summary      = "Build NSAttributedString in chain"
 s.description  = <<-DESC
 SCRAttributedStringBuilder is a NSMutableAttributedString category which can build attributed string in chain, just like 'make' in Masonry, for simplying original redundant way.
