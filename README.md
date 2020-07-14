@@ -26,7 +26,7 @@ self.label.attributedText = @"颜色/字体\n".attributedBuild.fontSize(30).colo
 
 ### Swift
 
-实现一个 AttributedStringBuilder，使用 Builder 来链式构建 AttributedString，将方法分成 Content、Range、Attribute 三类，Content 和 Range 类的方法会影响 Attribute 的作用域（Range）。与 Objective-C 有区别的是，需要在 Builder 构建最后调一下 end 方法，结束链式过程，不然会有 Warning。
+实现一个 AttributedStringBuilder，使用 Builder 来链式构建 AttributedString，将方法分成 Content、Range、Attribute 三类，Content 和 Range 类的方法会影响 Attribute 的作用域（Range）。
 
 使用方式如下：
 
@@ -42,7 +42,6 @@ label.attributedText = AttributedStringBuilder.build { builder in
         .append(text).alignment(.center)..lineSpacing(10)
         .append("路飞").font(UIFont.systemFont(ofSize:25)).strokeWidth(2).strokeColor(UIColor.darkGray)
         .appendImage(UIImage(named:"luffer")!, CGSize(width: 50, height: 50))
-        .end()
 }
 ```
 

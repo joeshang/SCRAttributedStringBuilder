@@ -25,15 +25,17 @@ public class AttributedStringBuilder {
 
     // MARK: - Content
 
-    public func end() -> Void {
-    }
+    // 下面方法都声明了 @discardableResult，此方法不再需要，保留是为了向前兼容
+    public func end() -> Void {}
 
+    @discardableResult
     public func append(_ string: String) -> AttributedStringBuilder {
         ranges = [ NSRange(location: attributedString.length, length: string.count) ]
         attributedString.append(NSAttributedString(string: string))
         return self
     }
 
+    @discardableResult
     public func insert(_ string: String, _ index: Int) -> AttributedStringBuilder {
         guard index <= attributedString.length else {
             return self
@@ -43,6 +45,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func appendSpacing(_ spacing: Float) -> AttributedStringBuilder {
         guard spacing > 0 else {
             return self
@@ -53,15 +56,18 @@ public class AttributedStringBuilder {
         return appendAttachment(attachment)
     }
 
+    @discardableResult
     public func appendAttachment(_ attachment: NSTextAttachment) -> AttributedStringBuilder {
         attributedString.append(NSAttributedString(attachment: attachment))
         return self
     }
 
+    @discardableResult
     public func appendImage(_ image: UIImage) -> AttributedStringBuilder {
         return appendImage(image, image.size)
     }
 
+    @discardableResult
     public func appendImage(_ image: UIImage, _ imageSize: CGSize) -> AttributedStringBuilder {
         var font: UIFont? = nil
         if attributedString.string.count != 0 {
@@ -70,10 +76,12 @@ public class AttributedStringBuilder {
         return appendImage(image, imageSize, font)
     }
 
+    @discardableResult
     public func appendImage(_ image: UIImage, _ font: UIFont) -> AttributedStringBuilder {
         return appendImage(image, image.size, font)
     }
 
+    @discardableResult
     public func appendImage(_ image: UIImage, _ imageSize: CGSize, _ font: UIFont?) -> AttributedStringBuilder {
         var offset: CGFloat = 0
         if let font = font {
@@ -86,6 +94,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func insertImage(_ image: UIImage, _ imageSize: CGSize, _ index: Int, _ font: UIFont) -> AttributedStringBuilder {
         let offset = CGFloat(roundf(Float((font.capHeight - imageSize.height) / 2)))
         let attachment = NSTextAttachment()
@@ -100,6 +109,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func headInsertImage(_ image: UIImage, _ imageSize: CGSize, _ font: UIFont) -> AttributedStringBuilder {
         var updatedRange = [NSRange]()
         for range in ranges {
@@ -116,6 +126,7 @@ public class AttributedStringBuilder {
 
     // MARK: - Range
 
+    @discardableResult
     public func range(_ location: Int, _ length: Int) -> AttributedStringBuilder {
         guard location >= 0 && length > 0 && location + length <= attributedString.length else {
             return self
@@ -124,11 +135,13 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func all() -> AttributedStringBuilder {
         ranges = [ NSRange(location: 0, length: attributedString.length) ]
         return self
     }
 
+    @discardableResult
     public func match(_ keyword: String) -> AttributedStringBuilder {
         guard keyword.count > 0 else {
             return self
@@ -150,6 +163,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func matchFirst(_ keyword: String) -> AttributedStringBuilder {
         guard keyword.count > 0 else {
             return self
@@ -162,6 +176,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func matchLast(_ keyword: String) -> AttributedStringBuilder {
         guard keyword.count > 0 else {
             return self
@@ -176,22 +191,26 @@ public class AttributedStringBuilder {
 
     // MARK: - Basic
 
+    @discardableResult
     public func font(_ font: UIFont) -> AttributedStringBuilder {
         addAttribute(name: .font, value: font)
         return self
     }
 
+    @discardableResult
     public func fontSize(_ size: CGFloat) -> AttributedStringBuilder {
         let font = UIFont.systemFont(ofSize: size)
         addAttribute(name: .font, value: font)
         return self
     }
 
+    @discardableResult
     public func color(_ color: UIColor) -> AttributedStringBuilder {
         addAttribute(name: .foregroundColor, value: color)
         return self
     }
 
+    @discardableResult
     public func hexColor(_ hexValue: Int) -> AttributedStringBuilder {
         let red = CGFloat((hexValue >> 16) & 0xFF) / 255.0
         let green = CGFloat((hexValue >> 8) & 0xFF) / 255.0
@@ -201,6 +220,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func backgroundColor(_ color: UIColor) -> AttributedStringBuilder {
         addAttribute(name: .backgroundColor, value: color)
         return self
@@ -208,46 +228,55 @@ public class AttributedStringBuilder {
 
     // MARK: - Glyph
 
+    @discardableResult
     public func strikethroughStyle(_ style: NSUnderlineStyle) -> AttributedStringBuilder {
         addAttribute(name: .strikethroughStyle, value: style.rawValue)
         return self
     }
 
+    @discardableResult
     public func strikethroughColor(_ color: UIColor) -> AttributedStringBuilder {
         addAttribute(name: .strikethroughColor, value: color)
         return self
     }
 
+    @discardableResult
     public func underlineStyle(_ style: NSUnderlineStyle) -> AttributedStringBuilder {
         addAttribute(name: .underlineStyle, value: style.rawValue)
         return self
     }
 
+    @discardableResult
     public func underlineColor(_ color: UIColor) -> AttributedStringBuilder {
         addAttribute(name: .underlineColor, value: color)
         return self
     }
 
+    @discardableResult
     public func strokeColor(_ color: UIColor) -> AttributedStringBuilder {
         addAttribute(name: .strokeColor, value: color)
         return self
     }
 
+    @discardableResult
     public func strokeWidth(_ width: CGFloat) -> AttributedStringBuilder {
         addAttribute(name: .strokeWidth, value: width)
         return self
     }
 
+    @discardableResult
     public func shadow(_ shadow: NSShadow) -> AttributedStringBuilder {
         addAttribute(name: .shadow, value: shadow)
         return self
     }
 
+    @discardableResult
     public func textEffect(_ effect: String) -> AttributedStringBuilder {
         addAttribute(name: .textEffect, value: effect)
         return self
     }
 
+    @discardableResult
     public func link(_ link: URL) -> AttributedStringBuilder {
         addAttribute(name: .link, value: link)
         return self
@@ -255,6 +284,7 @@ public class AttributedStringBuilder {
 
     // MARK: - Paragraph
 
+    @discardableResult
     public func lineSpacing(_ lineSpacing: CGFloat) -> AttributedStringBuilder {
         configParagraphStyle { style in
             style.lineSpacing = lineSpacing
@@ -262,6 +292,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func paragraphSpacing(_ paragraphSpacing: CGFloat) -> AttributedStringBuilder {
         configParagraphStyle { style in
             style.paragraphSpacing = paragraphSpacing
@@ -269,6 +300,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func alignment(_ alignment: NSTextAlignment) -> AttributedStringBuilder {
         configParagraphStyle { style in
             style.alignment = alignment
@@ -276,6 +308,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func lineBreakMode(_ lineBreakMode: NSLineBreakMode) -> AttributedStringBuilder {
         configParagraphStyle { style in
             style.lineBreakMode = lineBreakMode
@@ -283,6 +316,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func firstLineHeadIndent(_ firstLineHeadIndent: CGFloat) -> AttributedStringBuilder {
         configParagraphStyle { style in
             style.firstLineHeadIndent = firstLineHeadIndent
@@ -290,6 +324,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func headIndent(_ headIndent: CGFloat) -> AttributedStringBuilder {
         configParagraphStyle { style in
             style.headIndent = headIndent
@@ -297,6 +332,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func tailIndent(_ tailIndent: CGFloat) -> AttributedStringBuilder {
         configParagraphStyle { style in
             style.tailIndent = tailIndent
@@ -304,6 +340,7 @@ public class AttributedStringBuilder {
         return self
     }
 
+    @discardableResult
     public func lineHeight(_ lineHeight: CGFloat) -> AttributedStringBuilder {
         configParagraphStyle { style in
             style.minimumLineHeight = lineHeight
@@ -321,26 +358,31 @@ public class AttributedStringBuilder {
 
     // MARK: - Special
 
+    @discardableResult
     public func baselineOffset(_ offset: CGFloat) -> AttributedStringBuilder {
         addAttribute(name: .baselineOffset, value: offset)
         return self
     }
 
+    @discardableResult
     public func ligature(_ ligature: CGFloat) -> AttributedStringBuilder {
         addAttribute(name: .ligature, value: ligature)
         return self
     }
 
+    @discardableResult
     public func kern(_ kern: CGFloat) -> AttributedStringBuilder {
         addAttribute(name: .kern, value: kern)
         return self
     }
 
+    @discardableResult
     public func obliqueness(_ obliqueness: CGFloat) -> AttributedStringBuilder {
         addAttribute(name: .obliqueness, value: obliqueness)
         return self
     }
 
+    @discardableResult
     public func expansion(_ expansion: CGFloat) -> AttributedStringBuilder {
         addAttribute(name: .expansion, value: expansion)
         return self

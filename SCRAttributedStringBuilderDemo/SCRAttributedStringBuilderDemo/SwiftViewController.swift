@@ -42,7 +42,7 @@ class SwiftViewController: UIViewController {
                 .appendAttachment(attachment)
                 .insertImage(UIImage(named: "luffer")!, CGSize(width: 50, height: 50), 0, UIFont.systemFont(ofSize:30))
                 .append("\n阴影").shadow(shadow).append("基线偏移\n").baselineOffset(-5)
-                .append(" ").backgroundColor(UIColor.red).fontSize(2).end()
+                .append(" ").backgroundColor(UIColor.red).fontSize(2)
         }
     }
 
