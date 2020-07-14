@@ -39,7 +39,7 @@ label.attributedText = AttributedStringBuilder.build { builder in
         .match("链接").hexColor(0xFF4400).backgroundColor(UIColor.lightGray)
         .matchFirst("链接").underlineStyle(.thick).underlineColor(UIColor.green)
         .matchLast("链接").strikethroughStyle(.single).strikethroughColor(UIColor.yellow)
-        .append(text).alignment(.center)..lineSpacing(10)
+        .append(text).alignment(.center).lineSpacing(10)
         .append("路飞").font(UIFont.systemFont(ofSize:25)).strokeWidth(2).strokeColor(UIColor.darkGray)
         .appendImage(UIImage(named:"luffer")!, CGSize(width: 50, height: 50))
 }
@@ -59,12 +59,12 @@ platform :ios, '11.0'
 use_frameworks!
 target 'YourApp' do
     # 默认包含 Objective-C 和 Swift
-	pod 'SCRAttributedStringBuilder'
+    pod 'SCRAttributedStringBuilder'
 
     # 如果只想使用 Objective-C 部分
-	# pod 'SCRAttributedStringBuilder/OC'
+    # pod 'SCRAttributedStringBuilder/OC'
     # 如果只想使用 Swift 部分
-	# pod 'SCRAttributedStringBuilder/Swift'
+    # pod 'SCRAttributedStringBuilder/Swift'
 end
 ```
 
