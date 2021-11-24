@@ -30,7 +30,7 @@ public class AttributedStringBuilder {
 
     @discardableResult
     public func append(_ string: String) -> AttributedStringBuilder {
-        ranges = [ NSRange(location: attributedString.length, length: string.count) ]
+        ranges = [ NSRange(location: attributedString.length, length: string.nsCount) ]
         attributedString.append(NSAttributedString(string: string))
         return self
     }
@@ -41,7 +41,7 @@ public class AttributedStringBuilder {
             return self
         }
         attributedString.insert(NSAttributedString(string: string), at: index)
-        ranges = [ NSRange(location: index, length: string.count) ]
+        ranges = [ NSRange(location: index, length: string.nsCount) ]
         return self
     }
 
@@ -70,8 +70,8 @@ public class AttributedStringBuilder {
     @discardableResult
     public func appendImage(_ image: UIImage, _ imageSize: CGSize) -> AttributedStringBuilder {
         var font: UIFont? = nil
-        if attributedString.string.count != 0 {
-            font = attributedString.attribute(.font, at: attributedString.string.count - 1, effectiveRange: nil) as? UIFont
+        if attributedString.string.nsCount != 0 {
+            font = attributedString.attribute(.font, at: attributedString.string.nsCount - 1, effectiveRange: nil) as? UIFont
         }
         return appendImage(image, imageSize, font)
     }
@@ -143,13 +143,13 @@ public class AttributedStringBuilder {
 
     @discardableResult
     public func match(_ keyword: String) -> AttributedStringBuilder {
-        guard keyword.count > 0 else {
+        guard keyword.nsCount > 0 else {
             return self
         }
         var result = [NSRange]()
         var searchRange = NSRange(location: 0, length: attributedString.length)
         var foundRange = NSRange()
-        while searchRange.location < attributedString.string.count {
+        while searchRange.location < attributedString.string.nsCount {
             let string = NSString(string: attributedString.string)
             foundRange = string.range(of: keyword, options: [], range: searchRange)
             if foundRange.location == NSNotFound {
@@ -157,7 +157,7 @@ public class AttributedStringBuilder {
             }
             result.append(foundRange)
             searchRange.location = foundRange.location + foundRange.length
-            searchRange.length = attributedString.string.count - searchRange.location
+            searchRange.length = attributedString.string.nsCount - searchRange.location
         }
         ranges = result
         return self
@@ -165,7 +165,7 @@ public class AttributedStringBuilder {
 
     @discardableResult
     public func matchFirst(_ keyword: String) -> AttributedStringBuilder {
-        guard keyword.count > 0 else {
+        guard keyword.nsCount > 0 else {
             return self
         }
         let string = NSString(string: attributedString.string)
@@ -178,7 +178,7 @@ public class AttributedStringBuilder {
 
     @discardableResult
     public func matchLast(_ keyword: String) -> AttributedStringBuilder {
-        guard keyword.count > 0 else {
+        guard keyword.nsCount > 0 else {
             return self
         }
         let string = NSString(string: attributedString.string)
@@ -408,6 +408,14 @@ public class AttributedStringBuilder {
                 attributedString.addAttribute(.paragraphStyle, value: style, range: range)
             }
         }
+    }
+
+}
+
+private extension String {
+
+    var nsCount: Int {
+        return (self as NSString).length
     }
 
 }
